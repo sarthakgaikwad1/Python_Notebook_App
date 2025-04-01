@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Notebook App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>📝 Python Notebook App</h1>
+    </header>
+
+    <main>
+        <section class="create-note">
+            <h2>🆕 Create a New Note</h2>
+            <form action="/create" method="POST">
+                <label for="note_name">📄 Note Title:</label>
+                <input type="text" id="note_name" name="note_name" placeholder="Enter title..." required>
+
+                <label for="note_content">✍ Write Your Note:</label>
+                <textarea id="note_content" name="note_content" rows="5" placeholder="Type your note here..." required></textarea>
+
+                <button type="submit" class="btn">✅ Save Note</button>
+            </form>
+        </section>
+
+        <section class="saved-notes">
+            <h2>📂 Saved Notes</h2>
+            <ul>
+                {% for note in notes %}
+                    <li>
+                        <a href="/edit/{{ note[:-4] }}" class="note-title">📄 {{ note[:-4] }}</a>
+                        <a href="/delete/{{ note[:-4] }}" class="delete-btn">❌</a>
+                    </li>
+                {% else %}
+                    <li class="no-notes">🚫 No notes found. Start by creating one!</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+
+    <!-- Floating Button -->
+    <a href="#create" class="floating-btn">➕</a>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
